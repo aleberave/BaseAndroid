@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">MyApplication</string>
+    <string name="textPersonName">textPersonName</string>
+    <string name="phone">phone</string>
+    <string name="number">number</string>
+    <string name="textPassword">textPassword</string>
+    <string name="textEmailAddress">textEmailAddress</string>
+    <string name="text">text</string>
+    <string name="blue">blue</string>
+    <string name="button">Button</string>
+    <string name="switch1">Switch</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="nameApp">.hw1.MainActivity</string>
 </resources>

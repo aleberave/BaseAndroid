@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints,ScrollViewSize,UselessLeaf"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ems="10"
+            android:fontFamily="@font/curlz"
+            android:gravity="center"
+            android:hint="@string/text"
+            android:inputType="text"
+            android:textColor="@color/purple_700"
+            android:textColorHint="@color/purple_700"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/curlz"
+            android:gravity="center"
+            android:hint="@string/textPersonName"
+            android:inputType="textPersonName"
+            android:textColor="@color/teal_700"
+            android:textColorHint="@color/teal_700"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/curlz"
+            android:gravity="center"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:textColor="#FF5722"
+            android:textColorHint="#FF5722"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            tools:ignore="Autofill,TextFields" />
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/curlz"
+            android:gravity="center"
+            android:hint="@string/number"
+            android:inputType="number"
+            android:textColor="#2196F3"
+            android:textColorHint="#2196F3"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/curlz"
+            android:gravity="center"
+            android:hint="@string/textPassword"
+            android:inputType="textPassword"
+            android:textColor="#4CAF50"
+            android:textColorHint="#4CAF50"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/curlz"
+            android:gravity="center"
+            android:hint="@string/textEmailAddress"
+            android:inputType="textEmailAddress"
+            android:textColor="#FF9800"
+            android:textColorHint="#FF9800"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="Autofill,TextFields" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            style="@android:style/Widget.DeviceDefault.CalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
