@@ -17,4 +17,8 @@
     <string name="dot">.</string>
     <string name="equal">=</string>
     <string name="todo">TODO</string>
+    <string name="split_plus">\\+</string>
+    <string name="split_minus">\\-</string>
+    <string name="split_multiply">\\*</string>
+    <string name="split_divide">\\/</string>
 </resources>
