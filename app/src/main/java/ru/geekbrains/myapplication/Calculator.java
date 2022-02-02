@@ -12,13 +12,15 @@ public class Calculator implements Parcelable {
     private boolean operation;
     private Context mainActivity;
     private int counterDotSecond;
+    private int counterDotFirst;
 
-    public Calculator(boolean operation, boolean result, int counterDotSecond, Context mainActivity) {
+    public Calculator(boolean operation, boolean result, int counterDotFirst, int counterDotSecond, Context mainActivity) {
         if (!result) {
             stringBuilder = new StringBuilder();
             this.result = false;
             this.operation = operation;
             this.mainActivity = mainActivity;
+            this.counterDotFirst = counterDotFirst;
             this.counterDotSecond = counterDotSecond;
         }
     }
@@ -29,6 +31,7 @@ public class Calculator implements Parcelable {
             result = in.readBoolean();
             operation = in.readBoolean();
         }
+        counterDotFirst = in.readInt();
         counterDotSecond = in.readInt();
     }
 
@@ -43,6 +46,18 @@ public class Calculator implements Parcelable {
             return new Calculator[size];
         }
     };
+
+    public int getCounterDotFirst() {
+        return counterDotFirst;
+    }
+
+    public void setCounterDotFirst(int counterDotFirst) {
+        this.counterDotFirst = counterDotFirst;
+    }
+
+    public void increaseCounterDotFirst() {
+        counterDotFirst++;
+    }
 
     public int getCounterDotSecond() {
         return counterDotSecond;
@@ -131,6 +146,7 @@ public class Calculator implements Parcelable {
             parcel.writeBoolean(result);
             parcel.writeBoolean(operation);
         }
+        parcel.writeInt(counterDotFirst);
         parcel.writeInt(counterDotSecond);
     }
 }

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         buttons.add(findViewById(R.id.button_divide));
         buttons.add(findViewById(R.id.button_equal));
         textViewResult = findViewById(R.id.textView_result);
-        calculator = new Calculator(false, false, 0, this);
+        calculator = new Calculator(false, false, 0, 0, this);
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 calculator.getStringBuilder().delete(0, calculator.getStringBuilder().capacity());
                 calculator.setResult(false);
                 calculator.setOperation(false);
+                calculator.setCounterDotFirst(0);
                 calculator.setCounterDotSecond(0);
             }
             switch (view.getId()) {
@@ -116,25 +117,27 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case (R.id.button_dot): {
                     String a = calculator.getStringBuilder().toString();
-
-                    boolean bool = false;
-                    boolean boolOperation = false;
-
-                    if (a.contains(getString(R.string.dot))) {
-                        bool = true;
-                        if (a.contains(getString(R.string.plus))
-                                || a.contains(getString(R.string.minus))
-                                || a.contains(getString(R.string.multiply))
-                                || a.contains(getString(R.string.divide))) {
-                            boolOperation = true;
+                    if (a.length() == 0) {
+                        break;
+                    } else {
+                        String s = calculator.getStringBuilder().substring(calculator.getStringBuilder().length() - 1, calculator.getStringBuilder().length());
+                        if (s.equals(getString(R.string.zero)) || s.equals(getString(R.string.one)) ||
+                                s.equals(getString(R.string.two)) || s.equals(getString(R.string.three)) ||
+                                s.equals(getString(R.string.four)) || s.equals(getString(R.string.five)) ||
+                                s.equals(getString(R.string.six)) || s.equals(getString(R.string.seven)) ||
+                                s.equals(getString(R.string.eight)) || s.equals(getString(R.string.nine))) {
+                            if (calculator.getCounterDotFirst() < 1) {
+                                calculator.increaseCounterDotFirst();
+                                calculator.setStringBuilder(getString(R.string.dot));
+                            } else if (calculator.getCounterDotSecond() < 1)
+                                if (a.contains(getString(R.string.plus))
+                                        || a.contains(getString(R.string.minus))
+                                        || a.contains(getString(R.string.multiply))
+                                        || a.contains(getString(R.string.divide))) {
+                                    calculator.increaseCounterDotSecond();
+                                    calculator.setStringBuilder(getString(R.string.dot));
+                                }
                         }
-                    }
-
-                    if (!bool) {
-                        calculator.setStringBuilder(getString(R.string.dot));
-                    } else if (boolOperation && calculator.getCounterDotSecond() == 0) {
-                        calculator.increaseCounterDotSecond();
-                        calculator.setStringBuilder(getString(R.string.dot));
                     }
                     break;
                 }

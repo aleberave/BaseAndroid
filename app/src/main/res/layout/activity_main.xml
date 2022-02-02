@@ -44,7 +44,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/one"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -60,7 +60,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/two"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -76,7 +76,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/three"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -92,7 +92,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/four"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -108,7 +108,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/five"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -124,7 +124,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/six"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -140,7 +140,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/seven"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -156,7 +156,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/eight"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -172,7 +172,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/nine"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -188,7 +188,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/zero"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -204,7 +204,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/plus"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -220,7 +220,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/minus"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -236,7 +236,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/multiply"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -252,7 +252,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/divide"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -268,7 +268,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/dot"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
 
         <Button
@@ -284,7 +284,7 @@
             android:fontFamily="@font/curlz"
             android:text="@string/equal"
             android:textColor="@color/teal_200"
-            android:textSize="@dimen/button_size"
+            android:textSize="@dimen/button_text_size"
             android:textStyle="bold" />
     </GridLayout>
 
