@@ -21,4 +21,7 @@
     <string name="split_minus">\\-</string>
     <string name="split_multiply">\\*</string>
     <string name="split_divide">\\/</string>
+    <string name="default_theme">Default Theme</string>
+    <string name="orange_theme">Orange Theme</string>
+    <string name="purple_theme">Purple Theme</string>
 </resources>

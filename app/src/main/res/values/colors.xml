@@ -10,4 +10,25 @@
     <color name="button_background_tint">#4D086D9A</color>
     <color name="gridlayout_background_tint">#086D9A</color>
     <color name="gridlayout_background">#615ECDDC</color>
+    <color name="textview_text_color_hint">#483A59</color>
+
+    <color name="my_purple_100">#EFE4FD</color>
+    <color name="my_purple_200">#E0CCFB</color>
+    <color name="my_purple_300">#D3B7FA</color>
+    <color name="my_purple_400">#C59FFA</color>
+    <color name="my_purple_500">#BC90F6</color>
+    <color name="my_purple_600">#A86FF6</color>
+    <color name="my_purple_700">#9E5AFA</color>
+    <color name="my_purple_800">#8835F8</color>
+    <color name="my_purple_900">#7819FA</color>
+
+    <color name="my_orange_100">#F6E1C9</color>
+    <color name="my_orange_200">#FADBB8</color>
+    <color name="my_orange_300">#FBD2A3</color>
+    <color name="my_orange_400">#F6C48A</color>
+    <color name="my_orange_500">#FABC75</color>
+    <color name="my_orange_600">#F6AF5E</color>
+    <color name="my_orange_700">#FAA84C</color>
+    <color name="my_orange_800">#FA9A2E</color>
+    <color name="my_orange_900">#FB8D10</color>
 </resources>

@@ -1,8 +1,10 @@
 package ru.geekbrains.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,21 +13,42 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.HashSet;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final HashSet<Button> buttons = new HashSet<>();
     private TextView textViewResult;
     private Calculator calculator;
+    private final HashSet<RadioButton> radioButtons = new HashSet<>();
+
+    private static final String PREF_NAME = "key_pref";
+    private static final String PREF_THEME_KEY = "key_pref_theme";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(getAppTheme());
         setContentView(R.layout.activity_main);
 
         init();
         for (Button button : buttons) {
             button.setOnClickListener(listener);
         }
+        for (RadioButton radioButton : radioButtons) {
+            radioButton.setOnClickListener(this);
+        }
+
+    }
+
+    protected void setAppTheme(int codeStyle) {
+        SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(PREF_THEME_KEY, codeStyle);
+        editor.apply();
+    }
+
+    protected int getAppTheme() {
+        SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return sharedPref.getInt(PREF_THEME_KEY, R.style.myThemeDefault);
     }
 
     @Override
@@ -60,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         buttons.add(findViewById(R.id.button_equal));
         textViewResult = findViewById(R.id.textView_result);
         calculator = new Calculator(false, false, 0, 0, this);
+        radioButtons.add(findViewById(R.id.radioButton_defaultTheme));
+        radioButtons.add(findViewById(R.id.radioButton_orangeTheme));
+        radioButtons.add(findViewById(R.id.radioButton_purpleTheme));
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -187,4 +213,22 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case (R.id.radioButton_defaultTheme): {
+                setAppTheme(R.style.myThemeDefault);
+                break;
+            }
+            case (R.id.radioButton_orangeTheme): {
+                setAppTheme(R.style.myThemeOrange);
+                break;
+            }
+            case (R.id.radioButton_purpleTheme): {
+                setAppTheme(R.style.myThemePurple);
+                break;
+            }
+        }
+        recreate();
+    }
 }
