@@ -32,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setTheme(getAppTheme());
         setContentView(R.layout.activity_main);
 
-        init();
-
-        for (Button button : buttons) {
-            button.setOnClickListener(listener);
-        }
+        initView();
+        initListeners();
     }
 
     @Override
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         textViewResult.setText(calculator.getStringBuilder());
     }
 
-    private void init() {
+    private void initView() {
         buttons.add(findViewById(R.id.button0));
         buttons.add(findViewById(R.id.button1));
         buttons.add(findViewById(R.id.button2));
@@ -74,9 +71,8 @@ public class MainActivity extends AppCompatActivity {
         calculator = new Calculator(false, false, 0, 0, this);
     }
 
-    View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    public void initListeners() {
+        View.OnClickListener listener = view -> {
             if (calculator.isResult()) {
                 calculator.getStringBuilder().delete(0, calculator.getStringBuilder().capacity());
                 calculator.setResult(false);
@@ -156,8 +152,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             textViewResult.setText(calculator.getStringBuilder());
+        };
+
+        for (Button button : buttons) {
+            button.setOnClickListener(listener);
         }
-    };
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
