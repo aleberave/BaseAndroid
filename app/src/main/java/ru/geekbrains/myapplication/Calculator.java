@@ -1,9 +1,10 @@
 package ru.geekbrains.myapplication;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.Locale;
 
 public class Calculator implements Parcelable {
 
@@ -13,26 +14,21 @@ public class Calculator implements Parcelable {
     private Context mainActivity;
     private int counterDotSecond;
     private int counterDotFirst;
+    private int indexOperation;
 
     public Calculator(boolean operation, boolean result, int counterDotFirst, int counterDotSecond, Context mainActivity) {
         if (!result) {
             stringBuilder = new StringBuilder();
-            this.result = false;
             this.operation = operation;
-            this.mainActivity = mainActivity;
+            this.result = false;
             this.counterDotFirst = counterDotFirst;
             this.counterDotSecond = counterDotSecond;
+            this.mainActivity = mainActivity;
         }
     }
 
     protected Calculator(Parcel in) {
         stringBuilder.append(in.readString());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            result = in.readBoolean();
-            operation = in.readBoolean();
-        }
-        counterDotFirst = in.readInt();
-        counterDotSecond = in.readInt();
     }
 
     public static final Creator<Calculator> CREATOR = new Creator<Calculator>() {
@@ -95,7 +91,7 @@ public class Calculator implements Parcelable {
         stringBuilder.append(string);
     }
 
-    public Double resultStringBuilder() {
+    public void resultStringBuilder() {
         String s = this.getStringBuilder().toString();
         String[][] strings = new String[4][];
         strings[0] = s.split(mainActivity.getString(R.string.split_plus));
@@ -131,7 +127,65 @@ public class Calculator implements Parcelable {
                 break;
             }
         }
-        return res;
+        setResult(true);
+        getStringBuilder().delete(0, getStringBuilder().capacity());
+        int intResult = (int) Math.floor(res);
+        double temp = res - intResult;
+        if (temp > 0) {
+            setStringBuilder(String.format(Locale.ROOT, "%.4f", res));
+        } else {
+            setStringBuilder(String.format(Locale.ROOT, "%d", intResult));
+        }
+    }
+
+    public void getBeOrNotToBeDot() {
+        String a = getStringBuilder().toString();
+        if (!(a.length() == 0)) {
+            String s = getStringBuilder().substring(getStringBuilder().length() - 1, getStringBuilder().length());
+            if (s.equals(mainActivity.getString(R.string.zero)) || s.equals(mainActivity.getString(R.string.one)) ||
+                    s.equals(mainActivity.getString(R.string.two)) || s.equals(mainActivity.getString(R.string.three)) ||
+                    s.equals(mainActivity.getString(R.string.four)) || s.equals(mainActivity.getString(R.string.five)) ||
+                    s.equals(mainActivity.getString(R.string.six)) || s.equals(mainActivity.getString(R.string.seven)) ||
+                    s.equals(mainActivity.getString(R.string.eight)) || s.equals(mainActivity.getString(R.string.nine))) {
+                if (getCounterDotFirst() < 1) {
+                    increaseCounterDotFirst();
+                    setStringBuilder(mainActivity.getString(R.string.dot));
+                } else if (getCounterDotSecond() < 1) {
+                    if (a.contains(mainActivity.getString(R.string.plus))
+                            || a.contains(mainActivity.getString(R.string.minus))
+                            || a.contains(mainActivity.getString(R.string.multiply))
+                            || a.contains(mainActivity.getString(R.string.divide))) {
+                        increaseCounterDotSecond();
+                        setStringBuilder(mainActivity.getString(R.string.dot));
+                    }
+                }
+            }
+        }
+    }
+
+    public void doOperation(String operationSign) {
+        if (getStringBuilder().length() != 0) {
+            if (isOperation()) {
+                setOperation(true);
+                setStringBuilder(operationSign);
+                indexOperation = getStringBuilder().length();
+            }
+        }
+    }
+
+    public void doNumberZero(String thisNumber) {
+        if (isOperation()) {
+            if (!getStringBuilder().toString().equals(thisNumber)) {
+                setStringBuilder(thisNumber);
+            }
+        } else if (!isOperation()) {
+            String strZero = getStringBuilder().substring(indexOperation);
+            if (!strZero.equals(thisNumber)) {
+                if (!getStringBuilder().toString().equals(thisNumber)) {
+                    setStringBuilder(thisNumber);
+                }
+            }
+        }
     }
 
     @Override
@@ -142,12 +196,6 @@ public class Calculator implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(String.valueOf(stringBuilder));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            parcel.writeBoolean(result);
-            parcel.writeBoolean(operation);
-        }
-        parcel.writeInt(counterDotFirst);
-        parcel.writeInt(counterDotSecond);
     }
 }
 

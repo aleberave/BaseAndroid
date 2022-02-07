@@ -24,4 +24,6 @@
     <string name="default_theme">Default Theme</string>
     <string name="orange_theme">Orange Theme</string>
     <string name="purple_theme">Purple Theme</string>
+    <string name="choose_a_theme">Choose \n a Theme</string>
+    <string name="go_back_calculator">Go back Calculator</string>
 </resources>

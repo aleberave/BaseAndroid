@@ -1,27 +1,30 @@
 package ru.geekbrains.myapplication;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashSet;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private final HashSet<Button> buttons = new HashSet<>();
     private TextView textViewResult;
     private Calculator calculator;
-    private final HashSet<RadioButton> radioButtons = new HashSet<>();
+    public static int REQUEST_CODE = 999;
+    public static String MAIN_KEY = "main_key";
 
-    private static final String PREF_NAME = "key_pref";
-    private static final String PREF_THEME_KEY = "key_pref_theme";
+    private static final String SP_NAME = "name_sp";
+    private static final String SP_KEY = "name_sp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,25 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         init();
+
         for (Button button : buttons) {
             button.setOnClickListener(listener);
         }
-        for (RadioButton radioButton : radioButtons) {
-            radioButton.setOnClickListener(this);
-        }
-
-    }
-
-    protected void setAppTheme(int codeStyle) {
-        SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(PREF_THEME_KEY, codeStyle);
-        editor.apply();
-    }
-
-    protected int getAppTheme() {
-        SharedPreferences sharedPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        return sharedPref.getInt(PREF_THEME_KEY, R.style.myThemeDefault);
     }
 
     @Override
@@ -81,11 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons.add(findViewById(R.id.button_multiply));
         buttons.add(findViewById(R.id.button_divide));
         buttons.add(findViewById(R.id.button_equal));
+        buttons.add(findViewById(R.id.button_choose_a_theme));
         textViewResult = findViewById(R.id.textView_result);
         calculator = new Calculator(false, false, 0, 0, this);
-        radioButtons.add(findViewById(R.id.radioButton_defaultTheme));
-        radioButtons.add(findViewById(R.id.radioButton_orangeTheme));
-        radioButtons.add(findViewById(R.id.radioButton_purpleTheme));
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -100,9 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             switch (view.getId()) {
                 case (R.id.button0): {
-                    if (!calculator.getStringBuilder().toString().equals(getString(R.string.zero))) {
-                        calculator.setStringBuilder(getString(R.string.zero));
-                    }
+                    calculator.doNumberZero(getString(R.string.zero));
                     break;
                 }
                 case (R.id.button1): {
@@ -142,70 +126,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 case (R.id.button_dot): {
-                    String a = calculator.getStringBuilder().toString();
-                    if (a.length() == 0) {
-                        break;
-                    } else {
-                        String s = calculator.getStringBuilder().substring(calculator.getStringBuilder().length() - 1, calculator.getStringBuilder().length());
-                        if (s.equals(getString(R.string.zero)) || s.equals(getString(R.string.one)) ||
-                                s.equals(getString(R.string.two)) || s.equals(getString(R.string.three)) ||
-                                s.equals(getString(R.string.four)) || s.equals(getString(R.string.five)) ||
-                                s.equals(getString(R.string.six)) || s.equals(getString(R.string.seven)) ||
-                                s.equals(getString(R.string.eight)) || s.equals(getString(R.string.nine))) {
-                            if (calculator.getCounterDotFirst() < 1) {
-                                calculator.increaseCounterDotFirst();
-                                calculator.setStringBuilder(getString(R.string.dot));
-                            } else if (calculator.getCounterDotSecond() < 1)
-                                if (a.contains(getString(R.string.plus))
-                                        || a.contains(getString(R.string.minus))
-                                        || a.contains(getString(R.string.multiply))
-                                        || a.contains(getString(R.string.divide))) {
-                                    calculator.increaseCounterDotSecond();
-                                    calculator.setStringBuilder(getString(R.string.dot));
-                                }
-                        }
-                    }
+                    calculator.getBeOrNotToBeDot();
                     break;
                 }
                 case (R.id.button_plus): {
-                    if (calculator.isOperation()) {
-                        calculator.setOperation(true);
-                        calculator.setStringBuilder(getString(R.string.plus));
-                    }
+                    calculator.doOperation(getString(R.string.plus));
                     break;
                 }
                 case (R.id.button_minus): {
-                    if (calculator.isOperation()) {
-                        calculator.setOperation(true);
-                        calculator.setStringBuilder(getString(R.string.minus));
-                    }
+                    calculator.doOperation(getString(R.string.minus));
                     break;
                 }
                 case (R.id.button_multiply): {
-                    if (calculator.isOperation()) {
-                        calculator.setOperation(true);
-                        calculator.setStringBuilder(getString(R.string.multiply));
-                    }
+                    calculator.doOperation(getString(R.string.multiply));
                     break;
                 }
                 case (R.id.button_divide): {
-                    if (calculator.isOperation()) {
-                        calculator.setOperation(true);
-                        calculator.setStringBuilder(getString(R.string.divide));
-                    }
+                    calculator.doOperation(getString(R.string.divide));
                     break;
                 }
                 case (R.id.button_equal): {
-                    calculator.setResult(true);
-                    double doubleResult = calculator.resultStringBuilder();
-                    calculator.getStringBuilder().delete(0, calculator.getStringBuilder().capacity());
-                    int intResult = (int) Math.floor(doubleResult);
-                    double temp = doubleResult - intResult;
-                    if (temp > 0) {
-                        calculator.setStringBuilder(String.format(Locale.ROOT, "%.4f", doubleResult));
-                    } else {
-                        calculator.setStringBuilder(String.format(Locale.ROOT, "%d", intResult));
-                    }
+                    calculator.resultStringBuilder();
+                    break;
+                }
+                case (R.id.button_choose_a_theme): {
+                    Intent intent = new Intent(MainActivity.this, ThemeActivity.class);
+                    startActivityIfNeeded(intent, REQUEST_CODE);
                     break;
                 }
             }
@@ -214,21 +160,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case (R.id.radioButton_defaultTheme): {
-                setAppTheme(R.style.myThemeDefault);
-                break;
-            }
-            case (R.id.radioButton_orangeTheme): {
-                setAppTheme(R.style.myThemeOrange);
-                break;
-            }
-            case (R.id.radioButton_purpleTheme): {
-                setAppTheme(R.style.myThemePurple);
-                break;
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                setAppTheme(data.getIntExtra(MAIN_KEY, R.style.myThemePurple));
+                recreate();
             }
         }
-        recreate();
+    }
+
+    protected void setAppTheme(int codeStyle) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(SP_KEY, codeStyle);
+        editor.apply();
+    }
+
+    protected int getAppTheme() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        return sharedPreferences.getInt(SP_KEY, R.style.myThemeDefault);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LinearLayout linearLayout = findViewById(R.id.main_linear_layout);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            linearLayout.setBackgroundResource(R.drawable.sunset_purple_sky_beach_sand_footprints_shore_water);
+        }
     }
 }

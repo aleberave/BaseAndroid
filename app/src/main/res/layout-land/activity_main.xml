@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/leaf_leaves_colorful_green_macro_nature_background_plant_leaves"
@@ -10,56 +11,34 @@
         android:id="@+id/textView_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="332dp" />
 
-    <RadioGroup
-        android:id="@+id/radioButtons"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_choose_a_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/choose_a_theme"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline3">
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioButton_defaultTheme"
-            style="@style/styleMyRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/default_theme" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioButton_orangeTheme"
-            style="@style/styleMyRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/orange_theme" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioButton_purpleTheme"
-            style="@style/styleMyRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/purple_theme" />
-    </RadioGroup>
+        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button1"
@@ -70,8 +49,8 @@
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toTopOf="@id/guideline3" />
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+        app:layout_constraintTop_toTopOf="@id/guideline_horizontal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button2"
@@ -82,7 +61,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button3"
@@ -93,7 +72,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button4"
@@ -104,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button5"
@@ -115,7 +94,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button6"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
         app:layout_constraintTop_toBottomOf="@+id/button1" />
 
     <com.google.android.material.button.MaterialButton
@@ -160,7 +139,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button0"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
 
     <com.google.android.material.button.MaterialButton
@@ -205,7 +184,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button_divide"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
         app:layout_constraintTop_toBottomOf="@+id/button9" />
 
     <com.google.android.material.button.MaterialButton
