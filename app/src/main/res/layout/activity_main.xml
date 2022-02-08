@@ -176,4 +176,10 @@
         android:layout_height="wrap_content"
         android:text="@string/choose_a_theme" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_to_intent_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_another_app" />
+
 </LinearLayout>
