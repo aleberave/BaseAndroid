@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initListeners();
 
+        getIntentAcrossManifest();
+    }
+
+    private void getIntentAcrossManifest() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             textViewResult.setText(getString(R.string.empty));

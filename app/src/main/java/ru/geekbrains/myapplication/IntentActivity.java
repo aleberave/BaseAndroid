@@ -55,7 +55,7 @@ public class IntentActivity extends AppCompatActivity {
     private void setIntentToMain() {
         Intent intent = new Intent(getResources().getString(R.string.my_main));
         if (!textView.getText().toString().equals(getResources().getString(R.string.empty))) {
-            intent.putExtra(getString(R.string.my_main), getResources().getString(R.string.my_main));
+            intent.putExtra(getString(R.string.my_main), getResources().getString(R.string.my_main_from_intent_activity));
         }
 //        В моем случае у главной активити, которая принимает интент, два интрент-фильтра,
 //        один с категорией лаунчер, а другой с категорией дефолт.
