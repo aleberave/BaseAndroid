@@ -3,13 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
-    tools:context=".MainActivity">
-
-    <FrameLayout
-        android:id="@+id/container_fragment_notes"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+    android:orientation="vertical"
+    tools:context=".NotesFragment">
 
 </LinearLayout>

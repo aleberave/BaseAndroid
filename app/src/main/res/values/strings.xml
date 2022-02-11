@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyApplication</string>
+    <string name="choose_date_and_write_note">Choose date and write note</string>
+    <string name="get_date">Get Date</string>
+    <string name="divided">/</string>
+    <string name="selected_date">Selected Date: </string>
+    <string name="empty" />
+    <string name="new_line">\n</string>
 </resources>
