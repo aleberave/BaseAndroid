@@ -49,13 +49,13 @@ public class IntentActivity extends AppCompatActivity {
     }
 
     // Если брать ключи из ресурсов, то тоже работает,
-    // но вы нам ни разу не говорили о таком подходе.
+    // но нам ни разу не говорили о таком подходе.
     // Интересно это не используется или есть какие-то подводные камни?
 
     private void setIntentToMain() {
-        Intent intent = new Intent(getResources().getString(R.string.my_main));
+        Intent intent = new Intent(getResources().getString(R.string.ru_geekbrains_myapplication_MainActivity));
         if (!textView.getText().toString().equals(getResources().getString(R.string.empty))) {
-            intent.putExtra(getString(R.string.my_main), getResources().getString(R.string.my_main_from_intent_activity));
+            intent.putExtra(getString(R.string.ru_geekbrains_myapplication_MainActivity), getResources().getString(R.string.my_main_from_intent_activity));
         }
 //        В моем случае у главной активити, которая принимает интент, два интрент-фильтра,
 //        один с категорией лаунчер, а другой с категорией дефолт.

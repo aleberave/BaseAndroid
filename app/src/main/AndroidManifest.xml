@@ -20,7 +20,7 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="myMain" />
+                <action android:name="ru.geekbrains.myapplication.MainActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

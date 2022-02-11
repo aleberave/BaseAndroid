@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         if (bundle == null) {
             textViewResult.setText(getString(R.string.empty));
             Log.e("BUNDLE", "NULL");
-        } else if (bundle.getString(getString(R.string.my_main)) != null) {
-            textViewResult.setText(bundle.getString(getString(R.string.my_main)));
+        } else if (bundle.getString(getString(R.string.ru_geekbrains_myapplication_MainActivity)) != null) {
+            textViewResult.setText(bundle.getString(getString(R.string.ru_geekbrains_myapplication_MainActivity)));
         }
     }
 
