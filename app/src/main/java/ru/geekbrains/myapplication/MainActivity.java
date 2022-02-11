@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.button_to_intent_activity): {
-                    Intent intent = new Intent(getString(R.string.my_result));
+                    Intent intent = new Intent(getString(R.string.ru_geekbrains_myapplication_IntentActivity));
                     if (calculator.getStringBuilder() != null) {
                         intent.putExtra(INTENT_ACTIVITY_KEY, calculator.getStringBuilder().toString());
                         calculator.setStringBuilder(getResources().getString(R.string.empty));

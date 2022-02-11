@@ -28,7 +28,7 @@
     <string name="go_back_calculator">Go back Calculator</string>
     <string name="go_to_another_app">Go to\nanother\nApp</string>
     <string name="empty" />
-    <string name="my_result">myResult</string>
+    <string name="ru_geekbrains_myapplication_IntentActivity">ru.geekbrains.myapplication.IntentActivity</string>
     <string name="ru_geekbrains_myapplication_MainActivity">ru.geekbrains.myapplication.MainActivity</string>
     <string name="my_main_from_intent_activity">Manifest</string>
 </resources>
