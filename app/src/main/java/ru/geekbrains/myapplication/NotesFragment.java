@@ -44,13 +44,23 @@ public class NotesFragment extends Fragment {
         } else {
             myNote = new MyNote(0);
         }
-        if (getActivity() != null)
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(myNote);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).commit();
-            }
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(myNote);
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).commit();
+        }
+        getChooseTheme(view);
         initView(view);
+    }
+
+    private void getChooseTheme(View view) {
+        view.findViewById(R.id.button_choose_a_theme).setOnClickListener(view1 -> {
+            ThemeFragment themeFragment = ThemeFragment.newInstance();
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout_activity_main, themeFragment)
+                    .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
+        });
     }
 
     private void initView(View view) {
@@ -64,17 +74,15 @@ public class NotesFragment extends Fragment {
 
             final int finalI = i;
             textView.setOnClickListener(view1 -> {
-                if (getActivity() != null) {
-                    myNote = new MyNote(finalI);
-                    DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(myNote);
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container_fragment_notes, descriptionNoteFragment)
-                                .addToBackStack("").commit();
-                    } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).commit();
-                    }
+                myNote.setNoteIndex(finalI);
+                DescriptionNoteFragment descriptionNoteFragment = DescriptionNoteFragment.newInstance(myNote);
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .add(R.id.container_fragment_notes, descriptionNoteFragment)
+                            .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
+                } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).commit();
                 }
             });
         }

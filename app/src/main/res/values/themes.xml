@@ -12,5 +12,77 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="materialButtonStyle">@style/styleMyButton</item>
+        <item name="editTextStyle">@style/styleMyEditView</item>
+    </style>
+
+    <style name="myThemeOrange" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:navigationBarColor">@color/my_orange_500</item>
+        <item name="colorPrimary">@color/my_orange_600</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/my_orange_100</item>
+        <item name="colorOnPrimaryContainer">@color/my_orange_900</item>
+        <item name="colorPrimaryInverse">@color/my_orange_200</item>
+        <item name="colorSecondary">@color/my_orange_600</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/my_orange_100</item>
+        <item name="colorOnSecondaryContainer">@color/my_orange_900</item>
+        <item name="colorTertiary">@color/my_orange_600</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/my_orange_100</item>
+        <item name="colorOnTertiaryContainer">@color/my_orange_900</item>
+        <item name="android:statusBarColor">@color/my_orange_800</item>
+
+        <item name="materialButtonStyle">@style/styleMyButton</item>
+        <item name="editTextStyle">@style/styleMyEditView</item>
+    </style>
+
+    <style name="myThemePurple" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:navigationBarColor">@color/my_purple_500</item>
+        <item name="colorPrimary">@color/my_purple_600</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/my_purple_100</item>
+        <item name="colorOnPrimaryContainer">@color/my_purple_900</item>
+        <item name="colorPrimaryInverse">@color/my_purple_200</item>
+        <item name="colorSecondary">@color/my_purple_600</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/my_purple_100</item>
+        <item name="colorOnSecondaryContainer">@color/my_purple_900</item>
+        <item name="colorTertiary">@color/my_purple_600</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/my_purple_100</item>
+        <item name="colorOnTertiaryContainer">@color/my_purple_900</item>
+        <item name="android:statusBarColor">@color/my_purple_800</item>
+
+        <item name="materialButtonStyle">@style/styleMyButton</item>
+        <item name="editTextStyle">@style/styleMyEditView</item>
+    </style>
+
+    <style name="styleMyButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_marginStart">@dimen/margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/margin_end</item>
+        <item name="android:backgroundTint">@color/button_background_tint</item>
+        <item name="android:fontFamily">@font/bonbon</item>
+        <item name="android:textColor">@color/teal_200</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="styleMyEditView" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@color/button_background_tint</item>
+        <item name="android:fontFamily">@font/bonbon</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/teal_200</item>
+        <item name="android:textColorHint">@color/editView_text_color_hint</item>
+        <item name="android:textSize">@dimen/editView_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="styleMyRadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">@color/teal_200</item>
+        <item name="android:fontFamily">@font/bonbon</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
