@@ -3,7 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main.xml" value="0.22552083333333334" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/activity_main.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_date_picker.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_date_picker2.xml" value="0.10462962962962963" />
@@ -13,6 +13,7 @@
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_description_note_constraint1.xml" value="0.2977777777777778" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_theme.xml" value="0.29635416666666664" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/jlk.xml" value="0.11018518518518519" />
       </map>
     </option>
   </component>

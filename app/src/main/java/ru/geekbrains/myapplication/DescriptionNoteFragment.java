@@ -27,9 +27,6 @@ public class DescriptionNoteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            getParentFragmentManager().popBackStack();
-        }
     }
 
     @Override
@@ -48,6 +45,10 @@ public class DescriptionNoteFragment extends Fragment {
     }
 
     private void initView(View view) {
+        DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(myNote);
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.container_date_picker_fragment, datePickerFragment).commit();
+
         EditText editText = view.findViewById(R.id.fragment_description_editText);
         editText.setTextSize(30f);
 
@@ -55,19 +56,17 @@ public class DescriptionNoteFragment extends Fragment {
         if (myNote.getNoteDateDay(requireContext()) > 0 &&
                 myNote.getNoteDateMonth(requireContext()) > 0 &&
                 myNote.getNoteDateYear(requireContext()) > 0) {
-            date = new String[]{myNote.getNoteDateDay(requireContext()) + "/" +
-                    (myNote.getNoteDateMonth(requireContext()) + 1) + "/" +
+            date = new String[]{myNote.getNoteDateDay(requireContext()) + getString(R.string.divided) +
+                    (myNote.getNoteDateMonth(requireContext()) + 1) + getString(R.string.divided) +
                     myNote.getNoteDateYear(requireContext())};
-            stringBuilder = stringBuilder.append(date[0]).append("\n")
+            stringBuilder = stringBuilder.append(date[0]).append(getString(R.string.new_line))
                     .append(myNote.getNoteBody(requireContext()));
         } else {
             stringBuilder = stringBuilder.append(myNote.getNoteBody(requireContext()));
         }
 
+
         editText.setText(stringBuilder);
 
-        DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(myNote);
-        getChildFragmentManager().beginTransaction()
-                .add(R.id.container_date_picker_fragment, datePickerFragment).commit();
     }
 }

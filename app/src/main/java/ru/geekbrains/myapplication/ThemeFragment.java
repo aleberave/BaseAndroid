@@ -45,7 +45,7 @@ public class ThemeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
     }
-
+    
     private void initView(View view) {
         RadioButton defaultRadioButton = view.findViewById(R.id.radioButton_defaultTheme);
         RadioButton orangeRadioButton = view.findViewById(R.id.radioButton_orangeTheme);

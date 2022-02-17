@@ -57,9 +57,15 @@ public class NotesFragment extends Fragment {
     private void getChooseTheme(View view) {
         view.findViewById(R.id.button_choose_a_theme).setOnClickListener(view1 -> {
             ThemeFragment themeFragment = ThemeFragment.newInstance();
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.layout_activity_main, themeFragment)
-                    .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.layout_activity_main, themeFragment)
+                        .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
+            } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.layout_activity_main, themeFragment)
+                        .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
+            }
         });
     }
 
@@ -82,7 +88,8 @@ public class NotesFragment extends Fragment {
                             .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
                 } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     requireActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).commit();
+                            .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).
+                            addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
                 }
             });
         }

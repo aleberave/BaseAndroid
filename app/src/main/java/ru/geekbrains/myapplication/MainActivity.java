@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container_fragment_notes, notesFragment)
                     .commit();
         }
+
+        Toolbar toolbar = findViewById(R.id.toolbar_activity);
+        setSupportActionBar(toolbar);
     }
 
     @Override

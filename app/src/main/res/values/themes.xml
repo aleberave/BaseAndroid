@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -17,7 +17,7 @@
         <item name="editTextStyle">@style/styleMyEditView</item>
     </style>
 
-    <style name="myThemeOrange" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="myThemeOrange" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:navigationBarColor">@color/my_orange_500</item>
         <item name="colorPrimary">@color/my_orange_600</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -38,7 +38,7 @@
         <item name="editTextStyle">@style/styleMyEditView</item>
     </style>
 
-    <style name="myThemePurple" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="myThemePurple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:navigationBarColor">@color/my_purple_500</item>
         <item name="colorPrimary">@color/my_purple_600</item>
         <item name="colorOnPrimary">@color/white</item>
