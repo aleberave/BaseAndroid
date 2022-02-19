@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GU/Repository/app/src/main/res/drawable/ic_sentiment_dissatisfied.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/activity_main.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_date_picker.xml" value="0.29635416666666664" />
@@ -14,6 +15,12 @@
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_theme.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/jlk.xml" value="0.11018518518518519" />
+        <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_activity.xml" value="0.2222222222222222" />
+        <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_activity_main.xml" value="0.29635416666666664" />
+        <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_description_fragment.xml" value="0.11296296296296296" />
+        <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_description_popup.xml" value="0.11296296296296296" />
+        <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_notes_fragment.xml" value="0.11296296296296296" />
+        <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_theme.xml" value="0.11296296296296296" />
       </map>
     </option>
   </component>

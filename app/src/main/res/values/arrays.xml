@@ -16,4 +16,12 @@
         <item>This is the fifth note.</item>
     </string-array>
 
+    <integer-array name="note_image">
+        <item>@drawable/ic_sentiment_dissatisfied</item>
+        <item>@drawable/ic_sentiment_satisfied</item>
+        <item>@drawable/ic_sentiment_satisfied_alt</item>
+        <item>@drawable/ic_sentiment_very_dissatisfied</item>
+        <item>@drawable/ic_sentiment_very_satisfied</item>
+    </integer-array>
+
 </resources>

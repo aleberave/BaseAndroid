@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar_activity);
+        toolbar.setSubtitleTextColor(getResources().getColor(R.color.teal_700, getTheme()));
+        toolbar.setSubtitle(R.string.toolbar_subtitle);
         setSupportActionBar(toolbar);
     }
 

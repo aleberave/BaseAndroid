@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
@@ -29,6 +32,28 @@ public class ThemeFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_theme_fragment, menu);
+        menu.findItem(R.id.action_activity_theme).setVisible(false);
+        menu.findItem(R.id.action_activity_exit).setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_theme_exit) {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.removeItem(R.id.action_description_delete_date);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -43,9 +68,10 @@ public class ThemeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
         initView(view);
     }
-    
+
     private void initView(View view) {
         RadioButton defaultRadioButton = view.findViewById(R.id.radioButton_defaultTheme);
         RadioButton orangeRadioButton = view.findViewById(R.id.radioButton_orangeTheme);
