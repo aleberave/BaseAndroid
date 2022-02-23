@@ -18,4 +18,15 @@
     <string name="action_delete_date">delete date</string>
     <string name="todo">TODO</string>
     <string name="toolbar_subtitle">AppNotes</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="finished">Finished</string>
+    <string name="please_rate_the_app">Please, rate the app.</string>
+    <string name="want_to_rate">Want to rate?</string>
+    <string name="action_rate">rate</string>
 </resources>

@@ -3,12 +3,13 @@ package ru.geekbrains.myapplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements InterfaceToast {
 
     private static final String PREF_THEME_NAME = "key_pref";
     private static final String PREF_THEME_KEY = "key_pref_theme";
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
 //        Для правильного отображения в ландшафтной ориентации или использовать
 //        метод onCreate() во фрагменте DescriptionNoteFragment.
 //         ищем фрагмент, который сидит в контейнере R.id.cities_container
@@ -48,8 +48,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void getToastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
     protected int getAppTheme() {
         SharedPreferences sharedPref = getSharedPreferences(PREF_THEME_NAME, Context.MODE_PRIVATE);
         return sharedPref.getInt(PREF_THEME_KEY, R.style.Theme_MyApplication);
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        Toast.makeText(getApplicationContext(), getString(R.string.finished), Toast.LENGTH_SHORT).show();
+    }
+
 }

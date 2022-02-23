@@ -1,5 +1,7 @@
 package ru.geekbrains.myapplication;
 
+import static ru.geekbrains.myapplication.MyDialogFragment.MY_DIALOG_FRAGMENT;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,6 +43,11 @@ public class NotesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case (R.id.action_activity_rate_app): {
+                MyDialogFragment myDialogFragment = new MyDialogFragment();
+                myDialogFragment.show(requireActivity().getSupportFragmentManager(), MY_DIALOG_FRAGMENT);
+                break;
+            }
             case (R.id.action_activity_theme): {
                 ThemeFragment themeFragment = ThemeFragment.newInstance();
                 requireActivity().getSupportFragmentManager().beginTransaction()
@@ -121,8 +128,8 @@ public class NotesFragment extends Fragment {
                             .addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
                 } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     requireActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment).
-                            addToBackStack(requireActivity().getString(R.string.add_to_back_stack_empty)).commit();
+                            .replace(R.id.container_fragment_id_description_note, descriptionNoteFragment)
+                            .commit();
                 }
             });
         }
