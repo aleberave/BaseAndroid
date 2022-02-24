@@ -3,11 +3,14 @@ package ru.geekbrains.myapplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements InterfaceToast {
 
@@ -48,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
         }
     }
 
+    public void getSnackBar(String message) {
+        View view = findViewById(R.id.layout_activity_main);
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    }
+
     public void getToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -63,4 +71,16 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
         Toast.makeText(getApplicationContext(), getString(R.string.finished), Toast.LENGTH_SHORT).show();
     }
 
+    boolean firstClick = true;
+
+    @Override
+    public void onBackPressed() {
+        Fragment backStackFragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment_notes);
+        if (firstClick && (backStackFragment instanceof NotesFragment)) {
+            firstClick = false;
+            new DialogFragmentExit().show(getSupportFragmentManager(), DialogFragmentExit.DIALOG_FRAGMENT_EXIT);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
