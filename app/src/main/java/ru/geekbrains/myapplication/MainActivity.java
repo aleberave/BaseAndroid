@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import ru.geekbrains.myapplication.ui.InterfaceToast;
+import ru.geekbrains.myapplication.ui.NotesRecyclerFragment;
+
 public class MainActivity extends AppCompatActivity implements InterfaceToast {
 
     private static final String PREF_THEME_NAME = "key_pref";
@@ -21,12 +24,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(getAppTheme());
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_new);
 
         if (savedInstanceState == null) {
-            NotesFragment notesFragment = NotesFragment.newInstance();
+            NotesRecyclerFragment notesRecyclerFragment = NotesRecyclerFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_fragment_notes, notesFragment)
+                    .replace(R.id.container_fragment_notes, notesRecyclerFragment)
                     .commit();
         }
 
@@ -75,12 +78,14 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
 
     @Override
     public void onBackPressed() {
-        Fragment backStackFragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment_notes);
-        if (firstClick && (backStackFragment instanceof NotesFragment)) {
+        Fragment layoutFragment = getSupportFragmentManager().findFragmentById(R.id.layout_activity_main);
+        Fragment containerFragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment_notes);
+        if (firstClick && (containerFragment instanceof NotesRecyclerFragment) && (layoutFragment == null)) {
             firstClick = false;
             new DialogFragmentExit().show(getSupportFragmentManager(), DialogFragmentExit.DIALOG_FRAGMENT_EXIT);
         } else {
             super.onBackPressed();
         }
     }
+
 }

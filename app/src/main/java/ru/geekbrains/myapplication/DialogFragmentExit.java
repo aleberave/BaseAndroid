@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import ru.geekbrains.myapplication.ui.InterfaceToast;
+
 public class DialogFragmentExit extends DialogFragment {
 
     public static String DIALOG_FRAGMENT_EXIT = "DialogFragmentExit";

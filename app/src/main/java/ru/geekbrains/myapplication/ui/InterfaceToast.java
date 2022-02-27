@@ -1,4 +1,4 @@
-package ru.geekbrains.myapplication;
+package ru.geekbrains.myapplication.ui;
 
 public interface InterfaceToast {
 

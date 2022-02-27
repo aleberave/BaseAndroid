@@ -15,6 +15,9 @@
 
         <item name="materialButtonStyle">@style/styleMyButton</item>
         <item name="editTextStyle">@style/styleMyEditView</item>
+
+        <item name="android:ambientShadowAlpha">1</item>
+        <item name="android:spotShadowAlpha">1</item>
     </style>
 
     <style name="myThemeOrange" parent="Theme.MaterialComponents.DayNight.NoActionBar">

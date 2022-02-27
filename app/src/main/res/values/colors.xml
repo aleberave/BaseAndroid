@@ -29,4 +29,7 @@
     <color name="my_orange_700">#FAA84C</color>
     <color name="my_orange_800">#FA9A2E</color>
     <color name="my_orange_900">#FB8D10</color>
+
+
+    <color name="colorText">#1E0A4A</color>
 </resources>

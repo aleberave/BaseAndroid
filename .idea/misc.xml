@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GU/Repository/app/src/main/res/drawable/button_favorite.xml" value="0.1605" />
+        <entry key="..\:/GU/Repository/app/src/main/res/drawable/ic_favorite.xml" value="0.1605" />
+        <entry key="..\:/GU/Repository/app/src/main/res/drawable/ic_favorite_border.xml" value="0.1605" />
         <entry key="..\:/GU/Repository/app/src/main/res/drawable/ic_sentiment_dissatisfied.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/drawable/ic_star_rate.xml" value="0.1715" />
+        <entry key="..\:/GU/Repository/app/src/main/res/drawable/separator.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main_new.xml" value="0.378125" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/activity_main.xml" value="0.29635416666666664" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/activity_main_new.xml" value="0.1537037037037037" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/example.xml" value="0.2977777777777778" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_dailog.xml" value="0.2222222222222222" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_date_picker.xml" value="0.29635416666666664" />
@@ -16,7 +22,11 @@
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_description_note_constraint.xml" value="0.2977777777777778" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_description_note_constraint1.xml" value="0.2977777777777778" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes.xml" value="0.29635416666666664" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_cardview_item.xml" value="0.1" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_recycler_item.xml" value="0.1537037037037037" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_recycler.xml" value="0.1537037037037037" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_theme.xml" value="0.29635416666666664" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/fregment_recycler_view.xml" value="0.1537037037037037" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/jlk.xml" value="0.11018518518518519" />
         <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_activity.xml" value="0.2222222222222222" />
         <entry key="..\:/GU/Repository/app/src/main/res/menu/menu_activity_main.xml" value="0.29635416666666664" />

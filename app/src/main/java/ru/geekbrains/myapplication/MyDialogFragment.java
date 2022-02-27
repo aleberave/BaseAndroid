@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import ru.geekbrains.myapplication.ui.InterfaceToast;
+
 public class MyDialogFragment extends DialogFragment {
 
     public static String MY_DIALOG_FRAGMENT = "MyDialogFragment";
