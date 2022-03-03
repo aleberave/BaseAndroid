@@ -10,13 +10,15 @@ public class CardData implements Parcelable {
     private String title;
     private String description;
     private int picture;
+    private int pictureColor;
     private boolean like;
     private Date date;
 
-    public CardData(String title, String description, int picture, boolean like, Date date) {
+    public CardData(String title, String description, int picture, int pictureColor, boolean like, Date date) {
         this.title = title;
         this.description = description;
         this.picture = picture;
+        this.pictureColor = pictureColor;
         this.like = like;
         this.date = date;
     }
@@ -25,6 +27,7 @@ public class CardData implements Parcelable {
         title = in.readString();
         description = in.readString();
         picture = in.readInt();
+        pictureColor = in.readInt();
         like = in.readByte() != 0;
         date = new Date(in.readLong());
     }
@@ -34,6 +37,7 @@ public class CardData implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeInt(picture);
+        dest.writeInt(pictureColor);
         dest.writeByte((byte) (like ? 1 : 0));
         dest.writeLong(date.getTime());
     }
@@ -95,5 +99,12 @@ public class CardData implements Parcelable {
         this.date = date;
     }
 
+    public int getPictureColor() {
+        return pictureColor;
+    }
+
+    public void setPictureColor(int pictureColor) {
+        this.pictureColor = pictureColor;
+    }
 }
 

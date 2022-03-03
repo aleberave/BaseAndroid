@@ -32,4 +32,10 @@
 
 
     <color name="colorText">#1E0A4A</color>
+
+    <color name="colorTextRed1">#E1698E</color>
+    <color name="colorTextRed2">#DD4DD7</color>
+    <color name="colorTextRed3">#8D6ADA</color>
+    <color name="colorTextRed4">#B14052</color>
+    <color name="colorTextRed5">#A32B55</color>
 </resources>

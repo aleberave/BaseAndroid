@@ -1,4 +1,4 @@
-package ru.geekbrains.myapplication;
+package ru.geekbrains.myapplication.ui.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import ru.geekbrains.myapplication.R;
 
 public class ThemeFragment extends Fragment {
 

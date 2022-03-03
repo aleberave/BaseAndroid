@@ -1,4 +1,4 @@
-package ru.geekbrains.myapplication;
+package ru.geekbrains.myapplication.ui.main;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -11,7 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import ru.geekbrains.myapplication.ui.InterfaceToast;
+import ru.geekbrains.myapplication.R;
+import ru.geekbrains.myapplication.ui.main.InterfaceToast;
 
 public class MyDialogFragment extends DialogFragment {
 

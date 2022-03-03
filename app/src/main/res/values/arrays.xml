@@ -24,4 +24,12 @@
         <item>@drawable/ic_sentiment_very_satisfied</item>
     </integer-array>
 
+    <integer-array name="note_colors">
+        <item>@color/colorTextRed1</item>
+        <item>@color/colorTextRed2</item>
+        <item>@color/colorTextRed3</item>
+        <item>@color/colorTextRed4</item>
+        <item>@color/colorTextRed5</item>
+    </integer-array>
+
 </resources>

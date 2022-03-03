@@ -12,13 +12,22 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import ru.geekbrains.myapplication.ui.InterfaceToast;
-import ru.geekbrains.myapplication.ui.NotesRecyclerFragment;
+import ru.geekbrains.myapplication.publisher.Publisher;
+import ru.geekbrains.myapplication.ui.editor.CardFragment;
+import ru.geekbrains.myapplication.ui.main.DialogFragmentExit;
+import ru.geekbrains.myapplication.ui.main.InterfaceToast;
+import ru.geekbrains.myapplication.ui.main.NotesRecyclerFragment;
 
 public class MainActivity extends AppCompatActivity implements InterfaceToast {
 
     private static final String PREF_THEME_NAME = "key_pref";
     private static final String PREF_THEME_KEY = "key_pref_theme";
+
+    private Publisher publisher;
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +35,11 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
         setTheme(getAppTheme());
         setContentView(R.layout.activity_main_new);
 
+        publisher = new Publisher();
+
+        NotesRecyclerFragment notesRecyclerFragment;
         if (savedInstanceState == null) {
-            NotesRecyclerFragment notesRecyclerFragment = NotesRecyclerFragment.newInstance();
+            notesRecyclerFragment = NotesRecyclerFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container_fragment_notes, notesRecyclerFragment)
                     .commit();
@@ -43,12 +55,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
     protected void onResume() {
         super.onResume();
 //        Для правильного отображения в ландшафтной ориентации или использовать
-//        метод onCreate() во фрагменте DescriptionNoteFragment.
-//         ищем фрагмент, который сидит в контейнере R.id.cities_container
+//        метод onCreate() во фрагменте CardFragment.
+//         ищем фрагмент, который сидит в контейнере R.id.container_fragment_notes
         Fragment backStackFragment = getSupportFragmentManager()
                 .findFragmentById(R.id.container_fragment_notes);
-//        если такой есть, и он является CoatOfArmsFragment
-        if (backStackFragment instanceof DescriptionNoteFragment) {
+//        если такой есть, и он является CardFragment
+        if (backStackFragment instanceof CardFragment) {
 //            то сэмулируем нажатие кнопки Назад
             getSupportFragmentManager().popBackStack();
         }

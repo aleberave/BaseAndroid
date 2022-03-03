@@ -30,4 +30,12 @@
     <string name="want_to_rate">Want to rate?</string>
     <string name="action_rate">rate</string>
     <string name="thanks">THANKS</string>
+    <string name="add">add</string>
+    <string name="clear">clear</string>
+    <string name="update">update</string>
+    <string name="delete">delete</string>
+    <string name="save">save</string>
+    <string name="change_sentiment">Change sentiment:</string>
+    <string name="input_title">input title</string>
+    <string name="input_description">input description</string>
 </resources>

@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ThemeFragment">
+    tools:context=".ui.settings.ThemeFragment">
 
     <RadioGroup
         android:layout_width="wrap_content"

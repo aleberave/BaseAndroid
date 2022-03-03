@@ -1,4 +1,4 @@
-package ru.geekbrains.myapplication;
+package ru.geekbrains.myapplication.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import ru.geekbrains.myapplication.ui.InterfaceToast;
+import ru.geekbrains.myapplication.R;
+import ru.geekbrains.myapplication.ui.main.InterfaceToast;
 
 public class DialogFragmentExit extends DialogFragment {
 

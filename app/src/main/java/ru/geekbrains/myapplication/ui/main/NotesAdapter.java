@@ -1,5 +1,6 @@
-package ru.geekbrains.myapplication.ui;
+package ru.geekbrains.myapplication.ui.main;
 
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +9,36 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.myapplication.R;
 import ru.geekbrains.myapplication.repository.CardData;
-import ru.geekbrains.myapplication.repository.CardSource;
+import ru.geekbrains.myapplication.repository.CardsSource;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
-    private CardSource cardSource;
-    OnItemClickListener onItemClickListener;
+    private CardsSource cardsSource;
+    private OnItemClickListener onItemClickListener;
+
+    private final Fragment fragment;
+
+    private int menuPosition;
+
+    public int getMenuPosition() {
+        return menuPosition;
+    }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setData(CardSource cardSource) {
-        this.cardSource = cardSource;
+    NotesAdapter(Fragment fragment) {
+        this.fragment = fragment;
+    }
+
+    public void setData(CardsSource cardsSource) {
+        this.cardsSource = cardsSource;
         // команда адаптеру отрисовать все(!) полученные данные
         // связано с излишними зататами ресурсов
         notifyDataSetChanged();
@@ -37,20 +51,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new MyViewHolder(layoutInflater.inflate(R.layout.fragment_notes_cardview_item, parent, false));
+        return new MyViewHolder(layoutInflater.inflate(R.layout.fragment_notes_recycler_card_view_item, parent, false));
     }
 
-    //связывает ViewHolder с контентом по опзиции в списке,
+    //связывает ViewHolder с контентом по позиции в списке,
     // вызывается хоть 100 раз, если все элементы просматривать
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bindContentWithLayout(cardSource.getCardDAta(position));
+        holder.bindContentWithLayout(cardsSource.getCardDAta(position));
     }
 
     //размер элементов списка
     @Override
     public int getItemCount() {
-        return cardSource.size();
+        return cardsSource.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -69,14 +83,35 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             textViewDescription = (TextView) itemView.findViewById(R.id.description);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             like = (ToggleButton) itemView.findViewById(R.id.like);
+
+            fragment.registerForContextMenu(itemView);
+
+            imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+//                    точные координаты для контекстного меню
+//                    view.showContextMenu(100, 100);
+//                    return true;
+                    menuPosition = getLayoutPosition();
+                    return false; // обработка клика и передать дальше для действия во фрагменте
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    menuPosition = getLayoutPosition();
+                    // getAdapterPosition() -  позиция элемента в фоне(например пришли данные с сервера)
+                    // getLayoutPosition() - позиция элемента на экране у пользователя
+                    return false; // обработка клика и передать дальше для действия во фрагменте
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(getLayoutPosition());
-                        // getAdapterPosition() -  позиция элемента в фоне(например пришли данные с сервера)
-                        // getLayoutPosition() - позиция элемента на экране у пользователя
-                    }
+                    menuPosition = getLayoutPosition();
+                    onItemClickListener.onItemClick(menuPosition);
                 }
             });
         }
@@ -87,6 +122,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             textViewDescriptionDate.setText(content.getDate().toString());
             textViewDescription.setText(content.getDescription());
             imageView.setImageResource(content.getPicture());
+            imageView.setBackgroundTintMode(PorterDuff.Mode.ADD);
+            imageView.setBackgroundColor(fragment.getResources().getColor(content.getPictureColor(),
+                    fragment.requireActivity().getTheme()));
             like.setChecked(content.isLike());
         }
 
