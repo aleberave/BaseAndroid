@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import ru.geekbrains.myapplication.publisher.Publisher;
-import ru.geekbrains.myapplication.ui.editor.CardFragment;
+import ru.geekbrains.myapplication.ui.editor.NoteFragment;
 import ru.geekbrains.myapplication.ui.main.DialogFragmentExit;
 import ru.geekbrains.myapplication.ui.main.InterfaceToast;
 import ru.geekbrains.myapplication.ui.main.NotesRecyclerFragment;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
         Fragment backStackFragment = getSupportFragmentManager()
                 .findFragmentById(R.id.container_fragment_notes);
 //        если такой есть, и он является CardFragment
-        if (backStackFragment instanceof CardFragment) {
+        if (backStackFragment instanceof NoteFragment) {
 //            то сэмулируем нажатие кнопки Назад
             getSupportFragmentManager().popBackStack();
         }

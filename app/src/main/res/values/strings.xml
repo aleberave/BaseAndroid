@@ -38,4 +38,10 @@
     <string name="change_sentiment">Change sentiment:</string>
     <string name="input_title">input title</string>
     <string name="input_description">input description</string>
+    <string name="title_cardView">title</string>
+    <string name="descriptionDate_cardView">DescriptionDate</string>
+    <string name="description_cardView">Description</string>
+    <string name="local">Local</string>
+    <string name="sp">SP</string>
+    <string name="gf">GF</string>
 </resources>

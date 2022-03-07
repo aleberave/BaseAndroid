@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-public class CardData implements Parcelable {
+public class NoteData implements Parcelable {
 
     private String title;
     private String description;
@@ -14,7 +14,7 @@ public class CardData implements Parcelable {
     private boolean like;
     private Date date;
 
-    public CardData(String title, String description, int picture, int pictureColor, boolean like, Date date) {
+    public NoteData(String title, String description, int picture, int pictureColor, boolean like, Date date) {
         this.title = title;
         this.description = description;
         this.picture = picture;
@@ -23,7 +23,7 @@ public class CardData implements Parcelable {
         this.date = date;
     }
 
-    protected CardData(Parcel in) {
+    protected NoteData(Parcel in) {
         title = in.readString();
         description = in.readString();
         picture = in.readInt();
@@ -47,15 +47,15 @@ public class CardData implements Parcelable {
         return 0;
     }
 
-    public static final Creator<CardData> CREATOR = new Creator<CardData>() {
+    public static final Creator<NoteData> CREATOR = new Creator<NoteData>() {
         @Override
-        public CardData createFromParcel(Parcel in) {
-            return new CardData(in);
+        public NoteData createFromParcel(Parcel in) {
+            return new NoteData(in);
         }
 
         @Override
-        public CardData[] newArray(int size) {
-            return new CardData[size];
+        public NoteData[] newArray(int size) {
+            return new NoteData[size];
         }
     };
 

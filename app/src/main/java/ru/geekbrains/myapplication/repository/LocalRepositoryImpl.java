@@ -9,9 +9,9 @@ import java.util.List;
 
 import ru.geekbrains.myapplication.R;
 
-public class LocalRepositoryImpl implements CardsSource {
+public class LocalRepositoryImpl implements NotesSource {
 
-    private final List<CardData> dateSource;
+    private final List<NoteData> dateSource;
     private final Resources resources;
 
     public LocalRepositoryImpl(Resources resources) {
@@ -19,8 +19,8 @@ public class LocalRepositoryImpl implements CardsSource {
         this.resources = resources;
     }
 
-    public LocalRepositoryImpl(ArrayList<CardData> cardDataArrayList, Resources resources) {
-        dateSource = cardDataArrayList;
+    public LocalRepositoryImpl(ArrayList<NoteData> noteDataArrayList, Resources resources) {
+        dateSource = noteDataArrayList;
         this.resources = resources;
     }
 
@@ -31,7 +31,7 @@ public class LocalRepositoryImpl implements CardsSource {
         TypedArray colors = resources.obtainTypedArray(R.array.note_colors);
 
         for (int i = 0; i < titles.length; i++) {
-            dateSource.add(new CardData(titles[i], descriptions[i],
+            dateSource.add(new NoteData(titles[i], descriptions[i],
                     pictures.getResourceId(i, 0),
                     colors.getResourceId(i, 0), false,
                     Calendar.getInstance().getTime()));
@@ -47,33 +47,33 @@ public class LocalRepositoryImpl implements CardsSource {
     }
 
     @Override
-    public List<CardData> getAllCardDAta() {
+    public List<NoteData> getAllNoteData() {
         return dateSource;
     }
 
     @Override
-    public CardData getCardDAta(int position) {
+    public NoteData getNoteData(int position) {
         return dateSource.get(position);
     }
 
     @Override
-    public void clearCardsData() {
+    public void clearNotesData() {
         dateSource.clear();
     }
 
     @Override
-    public void addCardData(CardData cardData) {
-        dateSource.add(cardData);
+    public void addNoteData(NoteData noteData) {
+        dateSource.add(noteData);
     }
 
     @Override
-    public void deleteCardDAta(int position) {
+    public void deleteNoteData(int position) {
         dateSource.remove(position);
     }
 
     @Override
-    public void updateCardDAta(int position, CardData newCardData) {
-        dateSource.set(position, newCardData);
+    public void updateNoteData(int position, NoteData newNoteData) {
+        dateSource.set(position, newNoteData);
     }
 }
 

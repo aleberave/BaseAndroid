@@ -12,7 +12,7 @@
         <entry key="..\:/GU/Repository/app/src/main/res/drawable/radio_button_smile.xml" value="0.165" />
         <entry key="..\:/GU/Repository/app/src/main/res/drawable/separator.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
-        <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main_new.xml" value="0.378125" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout-land/activity_main_new.xml" value="0.209366391184573" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/activity_main.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/activity_main_new.xml" value="0.1537037037037037" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/example.xml" value="0.2977777777777778" />
@@ -28,6 +28,8 @@
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_dialog_smiles.xml" value="0.3" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes.xml" value="0.29635416666666664" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_cardview_item.xml" value="0.1" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_recycler.xml" value="0.3" />
+        <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_recycler_card_view_item.xml" value="0.1" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_recycler_cardview_item.xml" value="0.3" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_notes_recycler_item.xml" value="0.1537037037037037" />
         <entry key="..\:/GU/Repository/app/src/main/res/layout/fragment_recycler.xml" value="0.1537037037037037" />

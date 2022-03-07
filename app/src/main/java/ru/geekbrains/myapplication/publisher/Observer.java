@@ -1,8 +1,8 @@
 package ru.geekbrains.myapplication.publisher;
 
-import ru.geekbrains.myapplication.repository.CardData;
+import ru.geekbrains.myapplication.repository.NoteData;
 
 public interface Observer {
 
-    void receiveCardData(CardData cardData);
+    void receiveCardData(NoteData noteData);
 }

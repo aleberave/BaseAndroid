@@ -12,19 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import ru.geekbrains.myapplication.R;
-import ru.geekbrains.myapplication.repository.CardData;
+import ru.geekbrains.myapplication.repository.NoteData;
 
 public class DialogFragmentChangePicture extends DialogFragment {
 
     public static String DIALOG_FRAGMENT_CHANGE_PICTURE = "DialogFragmentChangePicture";
     private static final String CARD_DATA_DIALOG = "cardDataDialog";
-    private CardData cardData;
+    private NoteData noteData;
 
 
-    public static DialogFragmentChangePicture newInstance(CardData cardData) {
+    public static DialogFragmentChangePicture newInstance(NoteData noteData) {
         Bundle args = new Bundle();
         DialogFragmentChangePicture fragment = new DialogFragmentChangePicture();
-        args.putParcelable(CARD_DATA_DIALOG, cardData);
+        args.putParcelable(CARD_DATA_DIALOG, noteData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +39,7 @@ public class DialogFragmentChangePicture extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null) {
-            cardData = getArguments().getParcelable(CARD_DATA_DIALOG);
+            noteData = getArguments().getParcelable(CARD_DATA_DIALOG);
 
             ImageView imageView = requireActivity().findViewById(R.id.fragment_dialog_change_picture_imageView);
             TextView textView = view.findViewById(R.id.textViewDialogFragmentChangePicture);
@@ -47,27 +47,27 @@ public class DialogFragmentChangePicture extends DialogFragment {
             textView.setText(R.string.change_sentiment);
             view.findViewById(R.id.radioButtonDialogFragment1).setOnClickListener(view1 -> {
                 imageView.setImageResource(R.drawable.ic_sentiment_dissatisfied);
-                cardData.setPicture(R.drawable.ic_sentiment_dissatisfied);
+                noteData.setPicture(R.drawable.ic_sentiment_dissatisfied);
                 dismiss();
             });
             view.findViewById(R.id.radioButtonDialogFragment2).setOnClickListener(view12 -> {
                 imageView.setImageResource(R.drawable.ic_sentiment_satisfied);
-                cardData.setPicture(R.drawable.ic_sentiment_satisfied);
+                noteData.setPicture(R.drawable.ic_sentiment_satisfied);
                 dismiss();
             });
             view.findViewById(R.id.radioButtonDialogFragment3).setOnClickListener(view1 -> {
                 imageView.setImageResource(R.drawable.ic_sentiment_satisfied_alt);
-                cardData.setPicture(R.drawable.ic_sentiment_satisfied_alt);
+                noteData.setPicture(R.drawable.ic_sentiment_satisfied_alt);
                 dismiss();
             });
             view.findViewById(R.id.radioButtonDialogFragment4).setOnClickListener(view1 -> {
                 imageView.setImageResource(R.drawable.ic_sentiment_very_dissatisfied);
-                cardData.setPicture(R.drawable.ic_sentiment_very_dissatisfied);
+                noteData.setPicture(R.drawable.ic_sentiment_very_dissatisfied);
                 dismiss();
             });
             view.findViewById(R.id.radioButtonDialogFragment5).setOnClickListener(view1 -> {
                 imageView.setImageResource(R.drawable.ic_sentiment_very_satisfied);
-                cardData.setPicture(R.drawable.ic_sentiment_very_satisfied);
+                noteData.setPicture(R.drawable.ic_sentiment_very_satisfied);
                 dismiss();
             });
         }

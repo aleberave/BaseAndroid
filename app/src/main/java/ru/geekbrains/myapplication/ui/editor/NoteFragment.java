@@ -22,18 +22,18 @@ import java.util.Calendar;
 
 import ru.geekbrains.myapplication.MainActivity;
 import ru.geekbrains.myapplication.R;
-import ru.geekbrains.myapplication.repository.CardData;
+import ru.geekbrains.myapplication.repository.NoteData;
 
-public class CardFragment extends Fragment {
+public class NoteFragment extends Fragment {
 
     private static final String CARD_DATA = "cardData";
-    private CardData cardData;
+    private NoteData noteData;
     private DatePickerRecyclerFragment datePickerFragment;
 
-    public static CardFragment newInstance(CardData cardData) {
-        CardFragment fragment = new CardFragment();
+    public static NoteFragment newInstance(NoteData noteData) {
+        NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
-        args.putParcelable(CARD_DATA, cardData);
+        args.putParcelable(CARD_DATA, noteData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +52,8 @@ public class CardFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case (R.id.action_description_delete_date): {
-                cardData.setDate(Calendar.getInstance().getTime());
-                datePickerFragment = DatePickerRecyclerFragment.newInstance(cardData);
+                noteData.setDate(Calendar.getInstance().getTime());
+                datePickerFragment = DatePickerRecyclerFragment.newInstance(noteData);
                 getChildFragmentManager().beginTransaction()
                         .add(R.id.container_date_picker_fragment, datePickerFragment).commit();
                 break;
@@ -87,36 +87,55 @@ public class CardFragment extends Fragment {
 
     private void initView(View view) {
         if (getArguments() != null) {
-            cardData = getArguments().getParcelable(CARD_DATA);
+            noteData = getArguments().getParcelable(CARD_DATA);
             EditText title = (EditText) view.findViewById(R.id.fragment_card_input_title);
             EditText description = (EditText) view.findViewById(R.id.fragment_card_input_description);
             ImageView imageView = view.findViewById(R.id.fragment_dialog_change_picture_imageView);
 
             title.setTextSize(30f);
-            title.setText(cardData.getTitle());
+            title.setText(noteData.getTitle());
 
-            imageView.setImageResource(cardData.getPicture());
+            //    TODO Нужно доделать
+            //    НЕ РАБОТАЕТ с временной cardData?!
+            // 1. Выбор картинки и даты сделать через
+            //    Publisher-Observer(?!), м.б. предварительно сохранив
+            //    данные из cardData во временной cardData1,
+            //    т.к. картинку и дату получаем из
+            //    диалога-фрагмента и дочернего-фрагмента.
+            //    TODO Разобрать ещё раз Publisher-Observer
+            // 2. Копируем все данные из cardData в cardData1,
+            //    а значит все изменения будут в cardData1,
+            //    и после выхода из фрагмента эти данные не сохраняться,
+            //    если не нажать кнопку Save.
+            // 3. Если нажата кнопка Save, то копируем и сохраняем данные
+            //    из временной cardData1 в cardData.
+
+            imageView.setImageResource(noteData.getPicture());
             imageView.setOnLongClickListener(view1 -> {
-                DialogFragmentChangePicture dialogFragmentChangePicture = DialogFragmentChangePicture.newInstance(cardData);
+                DialogFragmentChangePicture dialogFragmentChangePicture = DialogFragmentChangePicture.newInstance(noteData);
                 dialogFragmentChangePicture.show(requireActivity().getSupportFragmentManager(), DIALOG_FRAGMENT_CHANGE_PICTURE);
+
                 return false;
             });
 
             description.setTextSize(30f);
-            description.setText(cardData.getDescription());
+            description.setText(noteData.getDescription());
 
-            datePickerFragment = DatePickerRecyclerFragment.newInstance(cardData);
+            datePickerFragment = DatePickerRecyclerFragment.newInstance(noteData);
             getChildFragmentManager().beginTransaction()
                     .add(R.id.container_date_picker_fragment, datePickerFragment).commit();
 
             view.findViewById(R.id.buttonSave).setOnClickListener(it -> {
-                cardData.setLike(true);
-                cardData.setTitle(title.getText().toString());
-                cardData.setDescription(description.getText().toString());
+                noteData.setLike(true);
+                noteData.setTitle(title.getText().toString());
+                noteData.setDescription(description.getText().toString());
 
-                ((MainActivity) requireActivity()).getPublisher().sendCardDate(cardData);
+                ((MainActivity) requireActivity()).getPublisher().sendCardDate(noteData);
                 ((MainActivity) requireActivity()).getSupportFragmentManager().popBackStack();
 
+                // Скрывает клавиатуру для EditText, если она
+                // активированна и если пользователь сам не
+                // закрыл клавиатуру перед закрытием фрагмента.
                 title.setFocusable(false);
                 description.setFocusable(false);
                 requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

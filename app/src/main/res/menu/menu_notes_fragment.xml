@@ -6,18 +6,18 @@
         android:id="@+id/action_activity_rate_app"
         android:icon="@drawable/ic_star_rate"
         android:title="@string/action_rate"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_activity_theme"
         android:icon="@drawable/ic_app_settings"
         android:title="@string/action_themes"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_activity_exit"
         android:icon="@drawable/ic_close"
         android:title="@string/action_exit"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
 </menu>

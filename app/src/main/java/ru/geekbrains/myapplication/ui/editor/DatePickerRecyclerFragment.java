@@ -15,20 +15,20 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 
 import ru.geekbrains.myapplication.R;
-import ru.geekbrains.myapplication.repository.CardData;
+import ru.geekbrains.myapplication.repository.NoteData;
 
 public class DatePickerRecyclerFragment extends Fragment {
 
-    private CardData cardData;
+    private NoteData noteData;
     private final static String CARD_DATA = "cardData";
 
     public DatePickerRecyclerFragment() {
     }
 
-    public static DatePickerRecyclerFragment newInstance(CardData cardData) {
+    public static DatePickerRecyclerFragment newInstance(NoteData noteData) {
         DatePickerRecyclerFragment fragment = new DatePickerRecyclerFragment();
         Bundle args = new Bundle();
-        args.putParcelable(CARD_DATA, cardData);
+        args.putParcelable(CARD_DATA, noteData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,7 +37,7 @@ public class DatePickerRecyclerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            cardData = getArguments().getParcelable(CARD_DATA);
+            noteData = getArguments().getParcelable(CARD_DATA);
         }
     }
 
@@ -57,7 +57,7 @@ public class DatePickerRecyclerFragment extends Fragment {
         DatePicker datePicker = view.findViewById(R.id.date_picker_on);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(cardData.getDate());
+        calendar.setTime(noteData.getDate());
 
         datePicker.init(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -68,7 +68,7 @@ public class DatePickerRecyclerFragment extends Fragment {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        cardData.setDate(calendar.getTime());
+                        noteData.setDate(calendar.getTime());
                     }
                 });
 
@@ -83,7 +83,7 @@ public class DatePickerRecyclerFragment extends Fragment {
                         datePicker.init(calendar1.get(Calendar.YEAR),
                                 calendar1.get(Calendar.MONTH),
                                 calendar1.get(Calendar.DAY_OF_MONTH), null);
-                        cardData.setDate(calendar.getTime());
+                        noteData.setDate(calendar.getTime());
                         return true;
                     }
                     return false;

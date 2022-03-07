@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.NotesRecyclerFragment">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButton_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/local" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButton_SP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButton_GF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gf" />
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/fragment_notes_recycler_card_view_item" />
+
+</FrameLayout>

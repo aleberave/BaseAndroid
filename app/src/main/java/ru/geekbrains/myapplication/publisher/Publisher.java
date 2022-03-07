@@ -3,20 +3,24 @@ package ru.geekbrains.myapplication.publisher;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.geekbrains.myapplication.repository.CardData;
+import ru.geekbrains.myapplication.repository.NoteData;
 
 public class Publisher {
 
-    private List<Observer> observers;
+    private final List<Observer> observers;
 
     public Publisher() {
         observers = new ArrayList<>();
     }
 
-    public void sendCardDate(CardData cardData) {
-        for (Observer observer : observers) {
-            observer.receiveCardData(cardData);
+    public void sendCardDate(NoteData noteData) {
+
+        for (int i = 0; i < observers.size(); i++) {
+            observers.get(i).receiveCardData(noteData);
         }
+//        for (Observer observer : observers) {
+//            observer.receiveCardData(cardData);
+//        }
     }
 
     /**

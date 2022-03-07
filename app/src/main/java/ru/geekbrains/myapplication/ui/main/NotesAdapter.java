@@ -13,12 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.myapplication.R;
-import ru.geekbrains.myapplication.repository.CardData;
-import ru.geekbrains.myapplication.repository.CardsSource;
+import ru.geekbrains.myapplication.repository.NoteData;
+import ru.geekbrains.myapplication.repository.NotesSource;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
-    private CardsSource cardsSource;
+    private NotesSource notesSource;
     private OnItemClickListener onItemClickListener;
 
     private final Fragment fragment;
@@ -37,8 +37,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         this.fragment = fragment;
     }
 
-    public void setData(CardsSource cardsSource) {
-        this.cardsSource = cardsSource;
+    public void setData(NotesSource notesSource) {
+        this.notesSource = notesSource;
         // команда адаптеру отрисовать все(!) полученные данные
         // связано с излишними зататами ресурсов
         notifyDataSetChanged();
@@ -58,13 +58,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     // вызывается хоть 100 раз, если все элементы просматривать
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bindContentWithLayout(cardsSource.getCardDAta(position));
+        holder.bindContentWithLayout(notesSource.getNoteData(position));
     }
 
     //размер элементов списка
     @Override
     public int getItemCount() {
-        return cardsSource.size();
+        return notesSource.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -117,7 +117,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         }
 
         // связывает контент с макетом
-        public void bindContentWithLayout(CardData content) {
+        public void bindContentWithLayout(NoteData content) {
             textViewTitle.setText(content.getTitle());
             textViewDescriptionDate.setText(content.getDate().toString());
             textViewDescription.setText(content.getDescription());
