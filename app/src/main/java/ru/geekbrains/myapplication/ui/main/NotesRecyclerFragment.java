@@ -93,6 +93,10 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
                 break;
             }
             case (R.id.action_add): {
+//                TODO доделать
+//                Нажимая на плюсик открывает окно с редактирование заметки.
+//                Только после заполнения полей добавлять заметку.
+//                Возвращать ответ через Publisher-Observer.
                 data.addNoteData(new NoteData("Title new note " + (data.size() + 1),
                         "Description new note " + (data.size() + 1),
                         R.drawable.ic_sentiment_satisfied, R.color.design_default_color_background, false,
