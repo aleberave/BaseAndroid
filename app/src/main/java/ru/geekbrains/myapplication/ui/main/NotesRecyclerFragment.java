@@ -242,12 +242,12 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
                 break;
             }
             case SOURCE_SP: {
-                // создаем репозиторий
+                // инициализируем уже объявленный репозиторий
                 if (localSharedPreferencesRepository == null) {
                     localSharedPreferencesRepository = new LocalSharedPreferencesRepositoryImpl(requireActivity()
                             .getSharedPreferences(KEY_SP_2, Context.MODE_PRIVATE)).init();
                 }
-                // инициализируем репозиторий
+                // заполняем данными репозиторий
                 if (localSharedPreferencesRepository.size() == 0) {
                     for (int i = 0; i < data.size(); i++) {
                         localSharedPreferencesRepository.addNoteData(data.getNoteData(i));
