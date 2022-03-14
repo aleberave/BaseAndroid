@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +36,9 @@ import ru.geekbrains.myapplication.repository.LocalRepositoryImpl;
 import ru.geekbrains.myapplication.repository.LocalSharedPreferencesRepositoryImpl;
 import ru.geekbrains.myapplication.repository.NoteData;
 import ru.geekbrains.myapplication.repository.NotesSource;
+import ru.geekbrains.myapplication.repository.PictureOrColorIndexConverter;
+import ru.geekbrains.myapplication.repository.RemoteFirestoreRepositoryImpl;
+import ru.geekbrains.myapplication.repository.RemoteFirestoreResponse;
 import ru.geekbrains.myapplication.ui.editor.NoteFragment;
 import ru.geekbrains.myapplication.ui.settings.ThemeFragment;
 
@@ -47,6 +49,7 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
     private RecyclerView recyclerView;
     private int currentPosition;
     private LocalSharedPreferencesRepositoryImpl localSharedPreferencesRepository;
+    private RemoteFirestoreRepositoryImpl remoteFirestoreRepository;
 
     private static final String NOTES_DATA = "notesData";
     private static final String NOTES_DATA_ARRAYS = "notesDataArrays";
@@ -99,8 +102,14 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
 //                Возвращать ответ через Publisher-Observer.
                 data.addNoteData(new NoteData("Title new note " + (data.size() + 1),
                         "Description new note " + (data.size() + 1),
-                        R.drawable.ic_sentiment_satisfied, R.color.design_default_color_background, false,
+                        PictureOrColorIndexConverter.randomPictureIndex(),
+                        PictureOrColorIndexConverter.randomColorIndex(),
+                        false,
                         Calendar.getInstance().getTime()));
+//                перересовать адаптер по размерам которые занимают все карточки,
+//                на весь экран, при добавлении новой карточки
+                if (data.size() <= 2)
+                    initAdapter();
                 recyclerView.smoothScrollToPosition(data.size() - 1);
                 notesAdapter.notifyItemInserted(data.size() - 1);
                 return true;
@@ -131,6 +140,7 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
             case (R.id.action_delete): {
                 data.deleteNoteData(currentPosition);
                 notesAdapter.notifyItemRemoved(currentPosition);
+                notesAdapter.notifyDataSetChanged();
                 return true;
             }
         }
@@ -144,6 +154,8 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
         setupSource(savedInstanceState);
         initAdapter();
         initRecycler(view);
+        initRadioGroup(view, savedInstanceState);
+        getSharedPreferences(view);
         if (savedInstanceState != null) { // при повороте экрана получаем сохраненную позицию из переменной
             currentPosition = savedInstanceState.getInt(NOTES_DATA);
         }
@@ -151,8 +163,6 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
             onItemClick(currentPosition);
         }
 
-        initRadioGroup(view, savedInstanceState);
-        getSharedPreferences(view);
     }
 
     private void getSharedPreferences(@NonNull View view) {
@@ -170,7 +180,6 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
                 break;
             }
         }
-        Log.d("SP", "setCurrentSource " + getCurrentSource());
     }
 
     private void initRadioGroup(View view, Bundle savedInstanceState) {
@@ -184,7 +193,7 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
     static final int SOURCE_GF = 3;
 
     private View.OnClickListener getListener(Bundle savedInstanceState) {
-        View.OnClickListener listener = new View.OnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
@@ -204,7 +213,6 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
                 setupSource(savedInstanceState);
             }
         };
-        return listener;
     }
 
     static String KEY_SP_S1 = "keyPref1";
@@ -232,15 +240,23 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
     private void setupSource(Bundle savedInstanceState) {
         switch (getCurrentSource()) {
             case SOURCE_LOCAL: {
-                // получаем карточки из SP-репозитория
                 if (localSharedPreferencesRepository != null && localSharedPreferencesRepository.size() != 0) {
+                    // получаем заметки из SP-репозитория
                     data = localSharedPreferencesRepository;
-                } else if (savedInstanceState != null) { // получаем карточки из массива ресурсов
+                } else if (remoteFirestoreRepository != null && remoteFirestoreRepository.size() != 0) {
+                    // получаем заметки из GF-репозитория
+                    data = remoteFirestoreRepository;
+                } else if (savedInstanceState != null) {
+                    // получаем заметки после сохранения состояния из массива ресурсов
                     data = new LocalRepositoryImpl(
                             savedInstanceState.getParcelableArrayList(NOTES_DATA_ARRAYS),
                             requireContext().getResources());
                 } else {
+                    // получаем автоматически созданные заметки из массива ресурсов
                     data = new LocalRepositoryImpl(requireContext().getResources()).init();
+
+//                    не создаем заметки по умолчанию
+//                    data = new LocalRepositoryImpl();
                 }
                 initAdapter();
                 break;
@@ -251,53 +267,78 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
                     localSharedPreferencesRepository = new LocalSharedPreferencesRepositoryImpl(requireActivity()
                             .getSharedPreferences(KEY_SP_2, Context.MODE_PRIVATE)).init();
                 }
-                // заполняем данными репозиторий
-                if (localSharedPreferencesRepository.size() == 0) {
-                    for (int i = 0; i < data.size(); i++) {
-                        localSharedPreferencesRepository.addNoteData(data.getNoteData(i));
-                    }
-                    // проверяем на совпадение названия заметки
-                    // и обновляем карточки из временного в SP-репозиторий
-                } else if (data != null && localSharedPreferencesRepository.size() != 0) {
-                    if (localSharedPreferencesRepository.size() == data.size()) {
-                        for (int i = 0; i < data.size(); i++) {
-                            if (localSharedPreferencesRepository.getNoteData(i) != null && data.getNoteData(i) != null) {
-                                if (!localSharedPreferencesRepository.getNoteData(i).getTitle().equals(data.getNoteData(i).getTitle())) {
-                                    localSharedPreferencesRepository.addNoteData(data.getNoteData(i));
-                                } else {
-                                    localSharedPreferencesRepository.updateNoteData(i, data.getNoteData(i));
-                                }
-                            }
-                        }
-                    } else if (localSharedPreferencesRepository.size() != data.size()) {
-                        int counter = 0;
-                        for (int i = 0; i < data.size(); i++) {
-                            for (int j = 0; j < localSharedPreferencesRepository.size(); j++) {
-                                if (localSharedPreferencesRepository.getNoteData(j) != null && data.getNoteData(i) != null) {
-                                    if (!(localSharedPreferencesRepository.getNoteData(j).getTitle().equals(data.getNoteData(i).getTitle()))) {
-                                        counter++;
-                                    } else {
-                                        localSharedPreferencesRepository.updateNoteData(i, data.getNoteData(i));
-                                    }
-                                }
-                            }
-                            if (counter == localSharedPreferencesRepository.size()) {
-                                localSharedPreferencesRepository.addNoteData(data.getNoteData(i));
-                            }
-                            counter = 0;
-                        }
-                    }
-                }
-                data = localSharedPreferencesRepository;
+
+                data = getDataForRepository(localSharedPreferencesRepository);
                 initAdapter();
                 break;
             }
             case SOURCE_GF: {
-                // TODO доделать с GoogleFirestore
-//                ((RadioButton) view.findViewById(R.id.radioButton_GF)).setChecked(true);
+//                инициализируем уже объявленный репозиторий
+                if (remoteFirestoreRepository == null) {
+                    remoteFirestoreRepository = new RemoteFirestoreRepositoryImpl().init(new RemoteFirestoreResponse() {
+                        @Override
+                        public void initialized(NotesSource notesSource) {
+                            initAdapter();
+                        }
+                    });
+                }
+
+                // когда асинхронный запрос, необходимо сохранять и возвращать состояние
+                if (savedInstanceState != null) {
+                    data = new RemoteFirestoreRepositoryImpl(savedInstanceState.getParcelableArrayList(NOTES_DATA_ARRAYS));
+                    initAdapter();
+                    // данные из удаленной БД
+                } else if (remoteFirestoreRepository != null) {
+                    data = getDataForRepository(remoteFirestoreRepository);
+                    initAdapter();
+                }
                 break;
             }
         }
+
+    }
+
+    private NotesSource getDataForRepository(NotesSource repository) {
+        if (repository != null) {
+//                    заполняем данными репозиторий
+            if (data != null && data.size() > 0 && repository.size() == 0) {
+                for (int i = 0; i < data.size(); i++) {
+                    repository.addNoteData(data.getNoteData(i));
+                }
+//                        проверяем на совпадение названия заметки
+//                        и обновляем заметки из временного в GF - репозиторий
+            } else if (data != null && repository.size() != 0) {
+                if (repository.size() == data.size()) {
+                    for (int i = 0; i < data.size(); i++) {
+                        if (repository.getNoteData(i) != null && data.getNoteData(i) != null) {
+                            if (!repository.getNoteData(i).getTitle().equals(data.getNoteData(i).getTitle())) {
+                                repository.addNoteData(data.getNoteData(i));
+                            } else {
+                                repository.updateNoteData(i, data.getNoteData(i));
+                            }
+                        }
+                    }
+                } else if (repository.size() != data.size()) {
+                    int counter = 0;
+                    for (int i = 0; i < data.size(); i++) {
+                        for (int j = 0; j < repository.size(); j++) {
+                            if (repository.getNoteData(j) != null && data.getNoteData(i) != null) {
+                                if (!(repository.getNoteData(j).getTitle().equals(data.getNoteData(i).getTitle()))) {
+                                    counter++;
+                                } else {
+                                    repository.updateNoteData(i, data.getNoteData(i));
+                                }
+                            }
+                        }
+                        if (counter == repository.size()) {
+                            repository.addNoteData(data.getNoteData(i));
+                        }
+                        counter = 0;
+                    }
+                }
+            }
+        }
+        return repository;
     }
 
     void initAdapter() {

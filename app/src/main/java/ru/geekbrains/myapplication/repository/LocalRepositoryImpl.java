@@ -24,6 +24,11 @@ public class LocalRepositoryImpl implements NotesSource {
         this.resources = resources;
     }
 
+    public LocalRepositoryImpl() {
+        dateSource = new ArrayList<>();
+        resources = null;
+    }
+
     public LocalRepositoryImpl init() {
         String[] titles = resources.getStringArray(R.array.note_name);
         String[] descriptions = resources.getStringArray(R.array.note_description);

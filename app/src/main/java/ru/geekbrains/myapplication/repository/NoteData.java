@@ -8,6 +8,11 @@ import java.util.Date;
 public class NoteData implements Parcelable {
 
     private String title;
+
+    // БД Firestore использует хранение по id,
+    // т.е. каждому оъекту присваивается свой идентификатор
+    private String id;
+
     private String description;
     private int picture;
     private int pictureColor;
@@ -65,6 +70,14 @@ public class NoteData implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescription() {
