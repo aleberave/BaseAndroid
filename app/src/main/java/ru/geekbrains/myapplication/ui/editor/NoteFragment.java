@@ -38,6 +38,8 @@ public class NoteFragment extends Fragment {
         return fragment;
     }
 
+    public NoteFragment(){};
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

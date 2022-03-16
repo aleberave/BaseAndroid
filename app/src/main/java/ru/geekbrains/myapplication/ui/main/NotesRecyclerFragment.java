@@ -253,10 +253,10 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
                             requireContext().getResources());
                 } else {
                     // получаем автоматически созданные заметки из массива ресурсов
-                    data = new LocalRepositoryImpl(requireContext().getResources()).init();
+//                    data = new LocalRepositoryImpl(requireContext().getResources()).init();
 
 //                    не создаем заметки по умолчанию
-//                    data = new LocalRepositoryImpl();
+                    data = new LocalRepositoryImpl();
                 }
                 initAdapter();
                 break;
@@ -390,7 +390,12 @@ public class NotesRecyclerFragment extends Fragment implements OnItemClickListen
         //2. подписываемся на получение сообщения
         ((MainActivity) requireActivity()).getPublisher().subscribe(observer);
 
-        NoteFragment noteFragment = NoteFragment.newInstance(data.getNoteData(position));
+        NoteFragment noteFragment;
+        if (data.size() == 0) {
+            noteFragment = new NoteFragment();
+        } else {
+            noteFragment = NoteFragment.newInstance(data.getNoteData(position));
+        }
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             requireActivity().getSupportFragmentManager().beginTransaction()
                     .add(R.id.container_fragment_notes, noteFragment)
