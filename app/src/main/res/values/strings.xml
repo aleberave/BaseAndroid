@@ -44,4 +44,10 @@
     <string name="local">Local</string>
     <string name="sp">SP</string>
     <string name="gf">GF</string>
+    <string name="input_title_note">Input title note</string>
+    <string name="input_description_note">Input description note</string>
+    <string name="description_channel">CHANNEL :: PUSH</string>
+    <string name="get_the_rate">Get the rate!</string>
+    <string name="dot_thanks">. Thanks!</string>
+    <string name="rate_space">Rate\ </string>
 </resources>

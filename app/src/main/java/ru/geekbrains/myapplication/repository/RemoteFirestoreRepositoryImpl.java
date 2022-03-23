@@ -32,10 +32,6 @@ public class RemoteFirestoreRepositoryImpl implements NotesSource {
         dataSource = new ArrayList<>();
     }
 
-    public RemoteFirestoreRepositoryImpl(ArrayList<NoteData> parcelableArrayList) {
-        dataSource = parcelableArrayList;
-    }
-
     public RemoteFirestoreRepositoryImpl init(RemoteFirestoreResponse remoteFirestoreResponse) {
         // запрашиваем все записи в коллекции,
         // задаем по полю дата (Date) будем сортировать
@@ -100,35 +96,23 @@ public class RemoteFirestoreRepositoryImpl implements NotesSource {
 
     @Override
     public void addNoteData(NoteData noteData) {
-        int counter = 0;
-        for (int i = 0; i < dataSource.size(); i++) {
-            if (noteData != null && dataSource.get(i) != null) {
-                if (noteData.getTitle().equals(dataSource.get(i).getTitle())) {
-                    dataSource.set(i, noteData);
-                } else {
-                    counter++;
-                }
+        // добавление в удаленную БД Firestore обязательно,
+        // а данный блок CallBack'а не обязательный ID обновляется автоматически,
+        // тут для примера изменение ID
+        collectionReference.add(NoteDataMapping.toDocument(noteData))
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        noteData.setId(documentReference.getId());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
             }
-        }
-
-        if (dataSource.size() == 0 || counter == dataSource.size()) {
-            // добавление в удаленную БД Firestore обязательно,
-            // а данный блок CallBack'а не обязательный ID обновляется автоматически,
-            // тут для примера изменение ID
-            collectionReference.add(NoteDataMapping.toDocument(noteData))
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            noteData.setId(documentReference.getId());
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            dataSource.add(noteData);
-        }
+        });
+        dataSource.add(noteData);
+//        }
     }
 
     @Override

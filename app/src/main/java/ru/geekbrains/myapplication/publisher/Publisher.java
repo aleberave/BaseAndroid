@@ -18,9 +18,6 @@ public class Publisher {
         for (int i = 0; i < observers.size(); i++) {
             observers.get(i).receiveCardData(noteData);
         }
-//        for (Observer observer : observers) {
-//            observer.receiveCardData(cardData);
-//        }
     }
 
     /**

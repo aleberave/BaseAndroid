@@ -21,14 +21,18 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 
 import ru.geekbrains.myapplication.MainActivity;
+import ru.geekbrains.myapplication.Navigation;
 import ru.geekbrains.myapplication.R;
+import ru.geekbrains.myapplication.publisher.Observer;
+import ru.geekbrains.myapplication.publisher.Publisher;
 import ru.geekbrains.myapplication.repository.NoteData;
 
 public class NoteFragment extends Fragment {
 
     private static final String CARD_DATA = "cardData";
     private NoteData noteData;
-    private DatePickerRecyclerFragment datePickerFragment;
+    private Publisher publisher;
+    private Observer observer;
 
     public static NoteFragment newInstance(NoteData noteData) {
         NoteFragment fragment = new NoteFragment();
@@ -38,7 +42,12 @@ public class NoteFragment extends Fragment {
         return fragment;
     }
 
-    public NoteFragment(){};
+    public NoteFragment() {
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -55,9 +64,9 @@ public class NoteFragment extends Fragment {
         switch (item.getItemId()) {
             case (R.id.action_description_delete_date): {
                 noteData.setDate(Calendar.getInstance().getTime());
-                datePickerFragment = DatePickerRecyclerFragment.newInstance(noteData);
-                getChildFragmentManager().beginTransaction()
-                        .add(R.id.container_date_picker_fragment, datePickerFragment).commit();
+                new Navigation(getChildFragmentManager())
+                        .addFragment(R.id.container_date_picker_fragment,
+                                DatePickerRecyclerFragment.newInstance(noteData), false);
                 break;
             }
             case (R.id.action_description_exit): {
@@ -83,6 +92,7 @@ public class NoteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        publisher = new Publisher();
         setHasOptionsMenu(true);
         initView(view);
     }
@@ -94,38 +104,30 @@ public class NoteFragment extends Fragment {
             EditText description = (EditText) view.findViewById(R.id.fragment_card_input_description);
             ImageView imageView = view.findViewById(R.id.fragment_dialog_change_picture_imageView);
 
+            observer = new Observer() {
+                @Override
+                public void receiveCardData(NoteData noteData) {
+                    imageView.setImageResource(noteData.getPicture());
+                }
+            };
+            getPublisher().subscribe(observer);
+
             title.setTextSize(30f);
             title.setText(noteData.getTitle());
 
-            //    TODO Нужно доделать
-            //    НЕ РАБОТАЕТ с временной cardData?!
-            // 1. Выбор картинки и даты сделать через
-            //    Publisher-Observer(?!), м.б. предварительно сохранив
-            //    данные из cardData во временной cardData1,
-            //    т.к. картинку и дату получаем из
-            //    диалога-фрагмента и дочернего-фрагмента.
-            //    TODO Разобрать ещё раз Publisher-Observer
-            // 2. Копируем все данные из cardData в cardData1,
-            //    а значит все изменения будут в cardData1,
-            //    и после выхода из фрагмента эти данные не сохраняться,
-            //    если не нажать кнопку Save.
-            // 3. Если нажата кнопка Save, то копируем и сохраняем данные
-            //    из временной cardData1 в cardData.
-
             imageView.setImageResource(noteData.getPicture());
             imageView.setOnLongClickListener(view1 -> {
-                DialogFragmentChangePicture dialogFragmentChangePicture = DialogFragmentChangePicture.newInstance(noteData);
+                DialogFragmentChangePicture dialogFragmentChangePicture = DialogFragmentChangePicture.newInstance(noteData, this);
                 dialogFragmentChangePicture.show(requireActivity().getSupportFragmentManager(), DIALOG_FRAGMENT_CHANGE_PICTURE);
-
                 return false;
             });
 
             description.setTextSize(30f);
             description.setText(noteData.getDescription());
 
-            datePickerFragment = DatePickerRecyclerFragment.newInstance(noteData);
-            getChildFragmentManager().beginTransaction()
-                    .add(R.id.container_date_picker_fragment, datePickerFragment).commit();
+            new Navigation(getChildFragmentManager())
+                    .addFragment(R.id.container_date_picker_fragment,
+                            DatePickerRecyclerFragment.newInstance(noteData), false);
 
             view.findViewById(R.id.buttonSave).setOnClickListener(it -> {
                 noteData.setLike(true);
@@ -146,4 +148,9 @@ public class NoteFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroyView() {
+        getPublisher().unsubscribe(observer);
+        super.onDestroyView();
+    }
 }

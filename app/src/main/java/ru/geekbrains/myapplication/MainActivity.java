@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import ru.geekbrains.myapplication.publisher.Publisher;
 import ru.geekbrains.myapplication.ui.editor.NoteFragment;
-import ru.geekbrains.myapplication.ui.main.DialogFragmentExit;
+import ru.geekbrains.myapplication.ui.main.DialogFragmentRateAndExit;
 import ru.geekbrains.myapplication.ui.main.InterfaceToast;
 import ru.geekbrains.myapplication.ui.main.NotesRecyclerFragment;
 
@@ -24,9 +24,14 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
     private static final String PREF_THEME_KEY = "key_pref_theme";
 
     private Publisher publisher;
+    private Navigation navigation;
 
     public Publisher getPublisher() {
         return publisher;
+    }
+
+    public Navigation getNavigation() {
+        return navigation;
     }
 
     @Override
@@ -36,13 +41,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
         setContentView(R.layout.activity_main_new);
 
         publisher = new Publisher();
+        navigation = new Navigation(getSupportFragmentManager());
 
-        NotesRecyclerFragment notesRecyclerFragment;
         if (savedInstanceState == null) {
-            notesRecyclerFragment = NotesRecyclerFragment.newInstance();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_fragment_notes, notesRecyclerFragment)
-                    .commit();
+            navigation.replaceFragment(R.id.container_fragment_notes, NotesRecyclerFragment.newInstance(), false);
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar_activity);
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceToast {
         Fragment containerFragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment_notes);
         if (firstClick && (containerFragment instanceof NotesRecyclerFragment) && (layoutFragment == null)) {
             firstClick = false;
-            new DialogFragmentExit().show(getSupportFragmentManager(), DialogFragmentExit.DIALOG_FRAGMENT_EXIT);
+            new DialogFragmentRateAndExit().show(getSupportFragmentManager(), DialogFragmentRateAndExit.DIALOG_FRAGMENT_EXIT);
         } else {
             super.onBackPressed();
         }
